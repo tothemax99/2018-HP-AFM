@@ -1,0 +1,3 @@
+Rod to actuator: Aluminum stock, either end should clamp onto a 0.5 inch diameter rod -> .025 corner radius is approximate (should not be sharp to avoid cracking), thickness approximate (+-0.05). Need 4 of these.
+Seal adapter: Titanium stock (provided), thickness as provided stock (0.25 nominal), all holes horizontally centered. Qty 1
+Window follower: Titanium stock (provided), thickness as provided stock (0.153 nominal), see .sat file for reference. Qty 1

@@ -1,0 +1,126 @@
+﻿<Page x:Class="HPAFM_Control_1.ControlFD"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+      xmlns:local="clr-namespace:HPAFM_Control_1"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="442"
+      Title="FDController">
+
+    <TabControl TabStripPlacement="Bottom" Name="FDTabs">
+        <TabItem Header="FFT">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                    <Button Content="Get FFT 0.1s" Click="GetFFT_Click"/>
+                    <TextBlock Name="NoiseText" Margin="10,0,0,0" Text="10000Hz 5.0e-4mm/s"/>
+                    <TextBlock Name="ResonantText" Margin="10,0,0,0" Text="15500Hz 1.5e-3mm/s"/>
+                    <TextBlock Text="LDV f" Margin="10,0,5,0"/>
+                    <ComboBox IsEditable="False" Name="LDVFRSelect" IsEnabled="False">
+                        <ComboBoxItem Tag="10000">10 kHz</ComboBoxItem>
+                        <ComboBoxItem Tag="20000" IsSelected="True">20 kHz</ComboBoxItem>
+                        <ComboBoxItem Tag="50000">50 kHz</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <s:SciChartSurface x:Name="sciChartSurface">
+                    <s:SciChartSurface.XAxis>
+                        <s:NumericAxis AxisTitle="Frequency [Hz]">
+                            <s:NumericAxis.VisibleRange>
+                                <s:DoubleRange Min="500" Max="20000"/>
+                            </s:NumericAxis.VisibleRange>
+                        </s:NumericAxis>
+                    </s:SciChartSurface.XAxis>
+                    <s:SciChartSurface.YAxis>
+                        <s:NumericAxis AxisTitle="Magnitude [mm/s]" AutoRange="Never" TextFormatting="0.00E0" ScientificNotation="E">
+                            <s:NumericAxis.VisibleRange>
+                                <s:DoubleRange Min="0" Max="4.0e-3"/>
+                            </s:NumericAxis.VisibleRange>
+                        </s:NumericAxis>
+                    </s:SciChartSurface.YAxis>
+                    <s:SciChartSurface.RenderableSeries>
+                        <s:FastLineRenderableSeries x:Name="LineSeriesFFT" Stroke="#FF99EE99">
+                            <!--<s:FastLineRenderableSeries.PointMarker>
+                                <s:SquarePointMarker Width="4" Height="4"/>
+                            </s:FastLineRenderableSeries.PointMarker>-->
+                        </s:FastLineRenderableSeries>
+                    </s:SciChartSurface.RenderableSeries>
+                    <s:SciChartSurface.ChartModifier>
+                        <s:ModifierGroup>
+                            <!--
+                            <s:ZoomExtentsModifier ExecuteOn="MouseDoubleClick" XyDirection="XYDirection"/>
+                            <s:RubberBandXyZoomModifier/>
+                            <s:ZoomPanModifier XyDirection="XYDirection" ExecuteOn="MouseRightButton" ZoomExtentsY="False"/>
+                            -->
+                        </s:ModifierGroup>
+                    </s:SciChartSurface.ChartModifier>
+                    <s:SciChartSurface.Annotations>
+                        <s:BoxAnnotation x:Name="NoiseFreqBox" Background="#55FF1919" BorderBrush="#FF1919" BorderThickness="2" CornerRadius="3" VerticalAlignment="Bottom" IsEditable="True" DragEnded="NoiseFreqBox_DragEnded" X1="9500" X2="10500" Y1="-10" Y2="5e-4" DragDirections="XDirection" ResizeDirections="YDirection"/>
+                        <s:BoxAnnotation x:Name="ResonantFreqBox" Background="#551964FF" BorderBrush="#1964FF" BorderThickness="2" CornerRadius="3" VerticalAlignment="Bottom" IsEditable="True" X1="14900" X2="15900" Y1="-10" Y2="1.5e-3" DragDirections="XDirection" ResizeDirections="YDirection" DragEnded="ResonantFreqBox_DragEnded"/>
+                    </s:SciChartSurface.Annotations>
+                </s:SciChartSurface>
+            </DockPanel>
+        </TabItem>
+        <TabItem Header="FD">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                    <Button Content="Get FD" Click="GetVel_Click"/>
+                    <Button Content="Output" Click="OutputVel_Click"/>
+                    <TextBlock Name="FDTrigText" Margin="10,0,0,0" Text="FD Level = 0.1 mm/s"/>
+                    <TextBlock Text="LDV Range" Margin="10,0,5,0"/>
+                    <ComboBox IsEditable="False" Name="LDVRSelect" SelectionChanged="LDVRSelect_SelectionChanged">
+                        <ComboBoxItem Tag="0.0005">+-500 um/s</ComboBoxItem>
+                        <ComboBoxItem Tag="0.001">+-1 mm/s</ComboBoxItem>
+                        <ComboBoxItem Tag="0.002">+-2 mm/s</ComboBoxItem>
+                        <ComboBoxItem Tag="0.005">+-5 mm/s</ComboBoxItem>
+                        <ComboBoxItem Tag="0.01">+-10 mm/s</ComboBoxItem>
+                        <ComboBoxItem Tag="0.02">+-20 mm/s</ComboBoxItem>
+                        <ComboBoxItem Tag="0.05">+-50 mm/s</ComboBoxItem>
+                        <ComboBoxItem Tag="0.1">+-100 mm/s</ComboBoxItem>
+                        <ComboBoxItem Tag="0.2">+-200 mm/s</ComboBoxItem>
+                        <ComboBoxItem Tag="0.5" IsSelected="True">+-500 mm/s</ComboBoxItem>
+                        <ComboBoxItem Tag="1.0">+- 1m/s</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Name="MinText" Text="00"/>
+                </StackPanel>
+                <s:SciChartSurface x:Name="sciChartSurface2">
+                    <s:SciChartSurface.XAxis>
+                        <s:NumericAxis AxisTitle="Time [s]">
+                            <s:NumericAxis.VisibleRange>
+                                <s:DoubleRange Min="0" Max="1"/>
+                            </s:NumericAxis.VisibleRange>
+                        </s:NumericAxis>
+                    </s:SciChartSurface.XAxis>
+                    <s:SciChartSurface.YAxis>
+                        <s:NumericAxis AxisTitle="Velocity [mm/s]" AutoRange="Never" TextFormatting="0.00E0" ScientificNotation="E">
+                            <s:NumericAxis.VisibleRange>
+                                <s:DoubleRange Min="-1" Max="1"/>
+                            </s:NumericAxis.VisibleRange>
+                        </s:NumericAxis>
+                    </s:SciChartSurface.YAxis>
+                    <s:SciChartSurface.RenderableSeries>
+                        <s:FastLineRenderableSeries x:Name="LineSeriesFD" Stroke="#FF99EE99">
+                            <!--<s:FastLineRenderableSeries.PointMarker>
+                                <s:SquarePointMarker Width="4" Height="4"/>
+                            </s:FastLineRenderableSeries.PointMarker>-->
+                        </s:FastLineRenderableSeries>
+                        <s:XyScatterRenderableSeries x:Name="PointSeriesFD">
+                            <s:EllipsePointMarker Width="6" Height="6" Stroke="SteelBlue"/>
+                        </s:XyScatterRenderableSeries>
+                    </s:SciChartSurface.RenderableSeries>
+                    <s:SciChartSurface.ChartModifier>
+                        <s:ModifierGroup>
+                            <s:MouseWheelZoomModifier ActionType="Zoom" XyDirection="XDirection"/>
+                            <s:ZoomExtentsModifier ExecuteOn="MouseDoubleClick" XyDirection="XYDirection"/>
+                            <s:RubberBandXyZoomModifier/>
+                            <s:ZoomPanModifier XyDirection="XDirection" ExecuteOn="MouseRightButton" ZoomExtentsY="False"/>
+                        </s:ModifierGroup>
+                    </s:SciChartSurface.ChartModifier>
+                    <s:SciChartSurface.Annotations>
+                        <s:HorizontalLineAnnotation x:Name="FDTrigSelect" IsEditable="True" DragEnded="FDTrigSelect_DragEnded" Y1="0.1"/>
+                    </s:SciChartSurface.Annotations>
+                </s:SciChartSurface>
+            </DockPanel>
+        </TabItem>
+    </TabControl>
+</Page>

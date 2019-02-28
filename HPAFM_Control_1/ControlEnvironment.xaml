@@ -1,0 +1,72 @@
+﻿<Page x:Class="HPAFM_Control_1.ControlEnvironment"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HPAFM_Control_1"
+      mc:Ignorable="d" d:DesignWidth="640"
+      Title="EnvironmentController" Height="200">
+
+    <StackPanel Width="640" Orientation="Horizontal">
+        <GroupBox Header="Realtime">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Margin="10,0">
+                    <TextBlock Text="Gas Pressure (PSI)" />
+                    <TextBlock Text="Water Pressure (PSI)" Margin="5,0"/>
+                    <TextBlock Text="Boil Pressure (PSI)" Margin="5,0" Foreground="CadetBlue"/>
+                    <TextBlock Text="Surface Temp (C)" Margin="0,5,0,0"/>
+                    <TextBlock Text="Water Temp (C)" Margin="5,0"/>
+                    <TextBlock Text="Boil Temp (C)" Margin="5,0" Foreground="CadetBlue"/>
+                    <TextBlock Text="Heater Duty (255)" Margin="0,5,0,0"/>
+                    <TextBlock Text="Heater Power (W)" Margin="5,0"/>
+                    <TextBlock Text="Controller Temp (C)" Margin="5,0" Foreground="CadetBlue"/>
+                    
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0">
+                    <TextBlock Text="0000" Width="40" Name="GasPress"/>
+                    <TextBlock Text="0000" Name="WaterPress"/>
+                    <TextBlock Text="0000" Name="BoilPress" Foreground="CadetBlue"/>
+                    <TextBlock Text="000" Name="SurfaceTemp" Margin="0,5,0,0"/>
+                    <TextBlock Text="000" Name="WaterTemp"/>
+                    <TextBlock Text="000" Name="BoilTemp" Foreground="CadetBlue"/>
+                    <TextBlock Text="000" Name="HeaterDuty" Margin="0,5,0,0"/>
+                    <TextBlock Text="000" Name="HeaterPower"/>
+                    <TextBlock Text="000" Name="ControllerTemp" Foreground="CadetBlue"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Setpoints" Width="195" Name="FDManualSetpts">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Margin="10,0">
+                    <TextBlock Text="Gas Pressure (PSI)" Margin="0,3" Width="100"/>
+                    <TextBlock Text="Water Temp (C)" Margin="0,3"/>
+                    <TextBlock Text="HP Valves" Margin="0,42,0,0"/>
+                    <TextBlock Text="E-Stop"/>
+                    <TextBlock Text="Heater Status"/>
+                    <TextBlock Name="StatusText" TextWrapping="Wrap" Text="Not Connected" Background="RosyBrown" Height="41" Margin="0,5"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0">
+                    <TextBox Text="0000" Width="60" Name="PressureSetpt"/>
+                    <TextBox Text="000" Name="WaterTempSetpt"/>
+                    <Button Content="Go!" Name="UpdateSetpts" IsEnabled="False" Click="UpdateSetpts_Click"/>
+                    <TextBlock Text="N/C" Name="hpValvesShut" Margin="0,20,0,0"/>
+                    <TextBlock Text="N/C" Name="eStopInactive"/>
+                    <TextBlock Text="N/C" Name="HeaterStatus"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="PID" Width="190" IsEnabled="False">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Margin="10,0">
+                    <TextBlock Text="Temp Offset (C)" Margin="0,3" Width="100"/>
+                    <TextBlock Text="P Constant" Margin="0,3"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0">
+                    <TextBox Text="0000" Width="40"/>
+                    <TextBox Text="000"/>
+                    <Button Content="Apply"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</Page>

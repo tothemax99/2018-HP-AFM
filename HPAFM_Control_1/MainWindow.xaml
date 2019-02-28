@@ -1,0 +1,114 @@
+﻿<Window x:Class="HPAFM_Control_1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+        xmlns:local="clr-namespace:HPAFM_Control_1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1024" Width="1280" WindowState="Maximized"
+        Closing="Window_Closing">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Height="200">
+            <TabControl Width="640">
+                <TabItem Header="Experiment Setup" Name="ExperimentTab">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical" Margin="10,10">
+                            <TextBlock Text="Experiment ID/Name" Height="22"/>
+                            <TextBlock Text="Sample ID/Name" Height="22"/>
+                            <TextBlock Text="Probe ID/Name" Height="22"/>
+                            <TextBlock Text="Data Output File" Height="22"/>
+                            <Button Content="Initialize Hardware" Name="InitHardwareBtn" Click="InitHardware_Click" IsEnabled="False" Margin="0,10"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="0,10">
+                            <TextBox Name="ExpName" Text="" Width="250"/>
+                            <TextBox Name="SmpName" Text=""/>
+                            <TextBox Name="PrbName" Text=""/>
+                            <Button Content="Select" Name="OutFileBtn" Click="OutFile_Click"/>
+                            <Button Name="Cont1Btn" Content="Continue >>" Margin="10" Click="Continue1_Click" IsEnabled="False"/>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Motor Limits" Name="MotorTab">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock TextWrapping="Wrap" Width="200">
+                            Loosen steel collars, then home both motors. Move motors until collars are engaged then tighten collars.
+                            Align left edge of sample with the probe then set Sample Zero. Approach to desired distance then set Probe Zero.
+                        </TextBlock>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <Button Content="Continue" Name="Continue2" Click="Continue2_Click" Margin="0,14,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Name="LDVTab" Header="LDV Lock-In">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock TextWrapping="Wrap" Width="200">
+                            Move laser beam to reflect off the tip of the cantilever, using reflection indicator on LDV screen and visible back-reflection of laser.
+                            Press Analyze FFT to get an FFT curve of the thermal oscillation. Select resonant and noise frequencies to use for auto-approach.
+                        </TextBlock>
+                        <Button Content="Check Probe" Click="CheckProbe_Click" Name="CheckProbeBtn"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Name="ApproachTab"  Header="Approach">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock TextWrapping="Wrap" Width="200">
+                            Auto-approach to sample, adjusting beam location as necessary. Confirm repeatable approach by retracting and approaching a second time.
+                            Adjust FFT parameters if necessary to achieve repeatable approach.
+                        </TextBlock>
+                        <StackPanel Margin="0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Name="AutoApproachSBtn" Content="Auto-Approach Start" Click="AutoApproach_Click"/>
+                                <Button Name="AutoApproachCBtn" Content="Cancel" Click="AutoApproachCancel_Click"/>
+                            </StackPanel>
+                            <Button Content="Set Approach Limit" Click="AutoApproachLimit_Click"/>
+                        </StackPanel>
+                        <Button Name="Continue3" Margin="50,0" IsEnabled="False" Content="Continue" Click="Continue3_Click"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="FD Setup" Name="FDTab">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock TextWrapping="Wrap" Width="200">
+                            Obtain an FD signal, then adjust trigger amplitude and velocity range to achieve repeatable oscillation amplitude measurement.
+                        </TextBlock>
+                        <Button Content="Continue" Click="Continue4_Click" Margin="20,0"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Auto Control" Name="AutoTab">
+                    <StackPanel Orientation="Horizontal">
+                        <GroupBox Header="Automation" Width="190">
+                            <StackPanel Orientation="Vertical">
+                                <Button Name="AutomationLoadBtn" Content="Load Automation File" Click="AutomationLoad_Click"/>
+                                <Button Name="AutomationStartBtn" IsEnabled="False" Content="Start Automation" Click="AutomationStart_Click"/>
+                                <Button Name="AutomationCancelBtn" IsEnabled="False" Content="Cancel Automation" Click="AutomationCancel_Click"/>
+                                <TextBox Name="AutomationStatusBox" Text="Automation Status" TextWrapping="Wrap" Height="70"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <Frame Width="190" Height="160" Background="AntiqueWhite" Name="AutomationControllerFrame"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Service" Name="ServiceTab">
+                    <StackPanel>
+                        <Button Content="Camera Controls" Click="ServiceBtn_Click" Tag="camera"/>
+                        <Button Content="DataBox Controls" Click="ServiceBtn_Click" Tag="databox"/>
+                        <Button Content="LDV Controls" Click="ServiceBtn_Click" Tag="ldv"/>
+                        <Button Content="Motors Controls" Click="ServiceBtn_Click" Tag="motors"/>
+                        <Button Content="HPBox Controls" Click="ServiceBtn_Click" Tag="hpbox"/>
+                        <Button Content="Test" Click="TestButton_Click"/>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+
+            <Frame Width="640" Height="200" Background="AliceBlue" Name="EnvControllerFrame"/>
+
+        </StackPanel>
+   
+        <DockPanel>
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+                <Frame Name="CameraControllerFrame" Width="640" Height="535" VerticalAlignment="Top" Background="SlateGray"/>
+                <Frame Name="MotorsControllerFrame" Width="640" Height="259" Background="LimeGreen"/>
+            </StackPanel>
+            
+            <Frame Name="FDControllerFrame" Background="DarkKhaki"/>
+        </DockPanel>
+    </DockPanel>
+</Window>

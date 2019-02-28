@@ -1,0 +1,68 @@
+﻿<Window x:Class="HPAFM_Control_1.ServiceMotion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HPAFM_Control_1"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+        Title="ControlMotion" Height="500" Width="350">
+    <StackPanel Orientation="Vertical">
+        <GroupBox Header="PI Motor Control">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Probe Position (mm)" Margin="0,3,0,0"/>
+                    <TextBlock Text="Sample Position (mm)" Margin="0,20,0,0"/>
+                    <TextBlock Text="Step Size (mm)" Margin="0,20,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="10,0">
+                    <TextBlock Name="ProbeAxisText" Text="00.000000" Margin="0,3,0,0"/>
+                    <TextBlock Name="SampleAxisText" Text="00.000000" Margin="0,20,0,0"/>
+                    
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <Button Name="RetractBtn" Content="Retract" Click="PIMove_Click" Tag="1-"/>
+                    <Button Name="MoveLeftBtn" Content="Move Left" Click="PIMove_Click" Tag="2-" Margin="0,14,0,0"/>
+                    <RadioButton GroupName="StepSize" Content="3" Checked="StepSize_Checked" Margin="0,17,0,0"/>
+                    <RadioButton GroupName="StepSize" Content="0.3" Checked="StepSize_Checked"/>
+                    <RadioButton GroupName="StepSize" Content="0.03" Checked="StepSize_Checked"/>
+                    <RadioButton GroupName="StepSize" Content="0.003" Checked="StepSize_Checked"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <Button Name="ApproachBtn" Content="Approach" Click="PIMove_Click" Tag="1+"/>
+                    <Button Name="MoveRightBtn" Content="Move Right" Click="PIMove_Click" Tag="2+" Margin="0,14,0,0"/>
+                    <RadioButton GroupName="StepSize" Content="1" Margin="0,17,0,0" IsChecked="True" Checked="StepSize_Checked"/>
+                    <RadioButton GroupName="StepSize" Content="0.1" Checked="StepSize_Checked"/>
+                    <RadioButton GroupName="StepSize" Content="0.01" Checked="StepSize_Checked"/>
+                    <RadioButton GroupName="StepSize" Content="0.001" Checked="StepSize_Checked"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Mirror Adjust" Width="340">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <Button Content="Up" Tag="SU" Click="MotionButton_Click" Width="50" Margin="50,0"/>
+                    <Button Content="Up" Tag="RU" Click="MotionButton_Click" Width="50" Margin="70,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Left" Tag="SL" Click="MotionButton_Click" Width="50"/>
+                    <TextBlock Text="Shift" Width="50" TextAlignment="Center" Margin="0,3,0,0" FontWeight="Bold"/>
+                    <Button Content="Right" Tag="SR" Click="MotionButton_Click" Width="50"/>
+                    <Button Content="Left" Tag="RL" Click="MotionButton_Click" Width="50" Margin="20,0,0,0"/>
+                    <TextBlock Text="Rotate" Width="50" TextAlignment="Center" Margin="0,3,0,0" FontWeight="Bold"/>
+                    <Button Content="Right" Tag="RR" Click="MotionButton_Click" Width="50"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <Button Content="Down" Tag="SD" Click="MotionButton_Click" Width="50" Margin="50,0"/>
+                    <Button Content="Down" Tag="RD" Click="MotionButton_Click" Width="50" Margin="70,0"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Camera Motor">
+            <StackPanel Orientation="Horizontal">
+                <ScrollBar Thumb.DragStarted="ScrollPosition_DragStarted" Thumb.DragCompleted="ScrollPosition_DragCompleted" Name="ScrollPosition" Orientation="Horizontal" Width="200" Minimum="0" Maximum="25" Value="0" SmallChange="0.1" LargeChange="1" ValueChanged="ScrollPosition_ValueChanged"/>
+                <TextBlock Text="{Binding ElementName=ScrollPosition, Path=Value, StringFormat='Focus 00.00mm'}" Margin="20,3"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</Window>

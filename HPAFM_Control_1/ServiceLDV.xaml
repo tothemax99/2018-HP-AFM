@@ -1,0 +1,58 @@
+﻿<Window x:Class="HPAFM_Control_1.ServiceLDV"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+        xmlns:local="clr-namespace:HPAFM_Control_1"
+        mc:Ignorable="d" Closing="Window_Closing"
+        Title="ControlLDV" Height="700" Width="350">
+    <StackPanel Orientation="Vertical">
+        
+        <GroupBox Header="LDV Status" Width="340">
+            <StackPanel>
+                <Button Content="Set Displacement Mode" Click="DisplacementMode_Click"/>
+                <Button Content="Set Velocity Mode" Click="VelocityMode_Click"/>
+                <Button Content="Get Data" Click="GetData_Click"/>
+                <Button Content="Output Data" Click="StartLDV_Click"/>
+                <Button Content="Stop LDV" Click="StopLDV_Click"/>
+            </StackPanel>
+        </GroupBox>
+        <s:SciChartSurface x:Name="sciChartSurface" Height="300">
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis AxisTitle="Sample Number"/>
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxis>
+                <s:NumericAxis AxisTitle="Value" AutoRange="Never" TextFormatting="0.00E0" ScientificNotation="E"/>
+            </s:SciChartSurface.YAxis>
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastLineRenderableSeries x:Name="LineSeries" Stroke="#FF99EE99">
+                    <!--<s:FastLineRenderableSeries.PointMarker>
+                        <s:SquarePointMarker Width="4" Height="4"/>
+                    </s:FastLineRenderableSeries.PointMarker>-->
+                </s:FastLineRenderableSeries>
+                <s:FastLineRenderableSeries x:Name="LineSeries2" Stroke="#FFE2EE99">
+                    <!--<s:FastLineRenderableSeries.PointMarker>
+                        <s:SquarePointMarker Width="4" Height="4"/>
+                    </s:FastLineRenderableSeries.PointMarker>-->
+                </s:FastLineRenderableSeries>
+                <s:XyScatterRenderableSeries x:Name="PointSeries">
+                    <s:EllipsePointMarker Width="6" Height="6" Stroke="SteelBlue"/>
+                </s:XyScatterRenderableSeries>
+            </s:SciChartSurface.RenderableSeries>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:MouseWheelZoomModifier ActionType="Zoom" XyDirection="XDirection"/>
+                    <s:ZoomExtentsModifier ExecuteOn="MouseDoubleClick" XyDirection="XYDirection"/>
+                    <s:ZoomPanModifier XyDirection="XDirection" ClipModeX="ClipAtExtents" ZoomExtentsY="False"/>
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+            <s:SciChartSurface.Annotations>
+                <s:VerticalLineAnnotation x:Name="FreqSelect" IsEditable="True" DragEnded="FreqSelect_DragEnded" LabelPlacement="Axis" ShowLabel="True" X1="15000"/>
+                <s:HorizontalLineAnnotation x:Name="HeightSelect" IsEditable="True" DragEnded="HeightSelect_DragEnded" LabelPlacement="Axis" ShowLabel="True" Y1="0"/>
+                <!-- <s:BoxAnnotation x:Name="FreqSelectBox" IsEditable="True" X1="14000" X2="15000" DragEnded="FreqSelectBox_DragEnded"/> -->
+            </s:SciChartSurface.Annotations>
+        </s:SciChartSurface>
+        <TextBox Width="340" Height="400" Name="LDVOutText"/>
+    </StackPanel>
+</Window>

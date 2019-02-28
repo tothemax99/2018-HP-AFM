@@ -1,0 +1,10 @@
+After machining of the chamber, windows and seal followers, and rod polishing, a few updates are necessary.
+	First, the seal adapter is not working properly - its opening is not wide enough in diameter to fit a new seal, and its inside diameter is the same size as the chamber hole diameter making alignment difficult. The adapter should be changed to a thicker material, so that a larger opening diameter and smaller closing diameter can be used.
+	Second, the window follower is not ideal - the simple through-hole design blocks a large angle of light that could potentially be used for optical observation. Thus the window follower is redesigned with an angled cut and a thicker stock to keep stresses manageable.
+
+Additionally, new pieces need to be machined
+	The sample and probe rods need to be machined with grooves and threaded #0-80 bolt holes to accept flat samples and probe holder
+	Probe holder needs to be machined
+	Rods (Ti or steel) for actuator attachment need to be drilled and tapped
+	Rod-like piece for attachment between male M8-1.25 screw thread and 0.5 inch shaft collar
+	Plate connectors that hold actuators onto rods
